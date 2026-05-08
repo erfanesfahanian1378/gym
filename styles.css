@@ -465,6 +465,9 @@ input { font: inherit; color: inherit; }
   grid-template-columns: repeat(3, 1fr);
   gap: 8px;
 }
+.day-tabs.day-tabs-4 { grid-template-columns: repeat(4, 1fr); }
+.day-tabs.day-tabs-4 .dt-num { font-size: 18px; }
+.day-tabs.day-tabs-4 .dt-label { font-size: 9px; }
 .day-tab {
   padding: 14px 10px;
   border: 1px solid var(--ink-15);

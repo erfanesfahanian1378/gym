@@ -6,7 +6,7 @@ function DayPicker({ lang, onPick, currentDayKey }) {
     <div className="day-picker">
       <div className="dp-label">{t("pickDay", lang)}</div>
       <div className="dp-grid">
-        {[1, 2, 3].map(k => {
+        {[1, 2, 3, 4].map(k => {
           const d = PLAN.days[k];
           return (
             <button
@@ -167,8 +167,8 @@ function PlanView({ lang }) {
         <div className="hero-meta">{lang === "fa" ? PLAN.meta.goals_fa : PLAN.meta.goals_en}</div>
       </div>
 
-      <div className="day-tabs">
-        {[1, 2, 3].map(k => (
+      <div className="day-tabs day-tabs-4">
+        {[1, 2, 3, 4].map(k => (
           <button
             key={k}
             className={"day-tab" + (openDay === k ? " active" : "")}
@@ -244,7 +244,7 @@ function ProgressView({ lang }) {
   }
 
   // exercise progression — show top 4 main lifts
-  const trackedIds = ["lat-pulldown", "rdl", "hipthrust", "incline-press", "shoulder-press", "goblet"];
+  const trackedIds = ["lat-pulldown", "rdl", "hipthrust", "incline-press", "shoulder-press", "goblet", "box-jump", "broad-jump"];
   const progressions = trackedIds.map(id => {
     const ex = findExercise(id);
     if (!ex) return null;
@@ -331,7 +331,7 @@ function ProgressView({ lang }) {
 }
 
 function findExercise(id) {
-  for (const k of [1, 2, 3]) {
+  for (const k of [1, 2, 3, 4]) {
     const day = PLAN.days[k];
     for (const ex of [...day.warmup, ...day.main, ...day.cooldown]) {
       if (ex.id === id) return ex;

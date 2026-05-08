@@ -163,10 +163,17 @@ function ExerciseCard({ ex, lang, dateKey, dayKey, onUpdate, sessionEx, idx }) {
         <div className="ex-body">
           <div className="ex-anim-wrap">
             <window.ExerciseAnim anim={ex.anim} size={200} />
-            <div className="video-slot">
-              <div className="video-pl">▶</div>
-              <div className="video-pl-text">{t("videoPlaceholder", lang)}</div>
-            </div>
+            {ex.youtube ? (
+              <a className="video-slot video-slot-link" href={ex.youtube} target="_blank" rel="noopener noreferrer">
+                <div className="video-pl">▶</div>
+                <div className="video-pl-text">{lang === "fa" ? "تماشا در یوتیوب" : "Watch on YouTube"}</div>
+              </a>
+            ) : (
+              <div className="video-slot">
+                <div className="video-pl">▶</div>
+                <div className="video-pl-text">{t("videoPlaceholder", lang)}</div>
+              </div>
+            )}
           </div>
 
           <p className="ex-instr">{lang === "fa" ? ex.instr_fa : ex.instr_en}</p>

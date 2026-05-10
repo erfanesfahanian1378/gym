@@ -166,7 +166,12 @@ function ExerciseCard({ ex, lang, dateKey, dayKey, onUpdate, sessionEx, idx }) {
             {ex.youtube ? (
               <a className="video-slot video-slot-link" href={ex.youtube} target="_blank" rel="noopener noreferrer">
                 <div className="video-pl">▶</div>
-                <div className="video-pl-text">{lang === "fa" ? "تماشا در یوتیوب" : "Watch on YouTube"}</div>
+                <div className="video-pl-text">
+                  {lang === "fa"
+                    ? (ex.youtube.includes("instagram") ? "تماشا در اینستاگرام" : ex.youtube.includes("facebook") ? "تماشا در فیسبوک" : "تماشا در یوتیوب")
+                    : (ex.youtube.includes("instagram") ? "Watch on Instagram" : ex.youtube.includes("facebook") ? "Watch on Facebook" : "Watch on YouTube")
+                  }
+                </div>
               </a>
             ) : (
               <div className="video-slot">

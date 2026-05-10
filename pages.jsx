@@ -41,10 +41,8 @@ function TodayView({ lang }) {
     setCurrentState(c);
   };
 
-  const session = useMemo(() => {
-    if (!dayKey) return null;
-    return window.Store.getOrCreateSession(dateKey, dayKey);
-  }, [dateKey, dayKey]);
+  // re-read on every render so set inputs reflect latest localStorage
+  const session = dayKey ? window.Store.getOrCreateSession(dateKey, dayKey) : null;
 
   const onUpdate = (exId, setIdx, patch) => {
     window.Store.updateSet(dateKey, dayKey, exId, setIdx, patch);

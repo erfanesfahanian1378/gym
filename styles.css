@@ -474,9 +474,6 @@ input { font: inherit; color: inherit; }
   grid-template-columns: repeat(3, 1fr);
   gap: 8px;
 }
-.day-tabs.day-tabs-4 { grid-template-columns: repeat(4, 1fr); }
-.day-tabs.day-tabs-4 .dt-num { font-size: 18px; }
-.day-tabs.day-tabs-4 .dt-label { font-size: 9px; }
 .day-tab {
   padding: 14px 10px;
   border: 1px solid var(--ink-15);
@@ -511,6 +508,17 @@ input { font: inherit; color: inherit; }
   font-size: 12px; color: var(--ink-50);
   font-variant-numeric: tabular-nums;
   flex-shrink: 0;
+}
+.po-row-week { align-items: flex-start; }
+.po-row-week .po-name { display: flex; flex-direction: column; gap: 3px; }
+.po-week-day { font-size: 13px; }
+.po-week-act { font-size: 12px; font-weight: 500; color: var(--ink-50); }
+.po-row-week .po-meta-r { text-align: end; line-height: 1.5; }
+.po-note {
+  font-size: 12px; line-height: 1.6; color: var(--ink-50);
+  padding: 10px 12px;
+  border: 1px dashed var(--ink-15);
+  border-radius: var(--rad);
 }
 
 /* === PROGRESS / CALENDAR === */

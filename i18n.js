@@ -54,6 +54,11 @@ window.STR = {
     fa: ["ژان","فور","مار","آور","می","ژوئن","ژوئی","اوت","سپ","اکت","نوا","دس"],
   },
   sessionLogged: { en: "Session saved", fa: "جلسه ذخیره شد" },
+  weekOverview: { en: "Weekly overview", fa: "نمای کلی هفته" },
+  cardioShort: { en: "Cardio", fa: "کاردیو" },
+  agility: { en: "Agility", fa: "چابکی" },
+  agilityProg: { en: "Agility progression", fa: "پیشرفت چابکی" },
+  recoverySigns: { en: "Recovery warning signs", fa: "علائم هشدار ریکاوری" },
   postureMatters: { en: "Posture comes first", fa: "پاسچر اولویت داره" },
   postureNote: {
     en: "Tuck the tailbone forward before every heavy set. Press the back firmly into the pad on machine work. Stop if it sharp pains.",

@@ -6,7 +6,7 @@ function DayPicker({ lang, onPick, currentDayKey }) {
     <div className="day-picker">
       <div className="dp-label">{t("pickDay", lang)}</div>
       <div className="dp-grid">
-        {[1, 2, 3, 4].map(k => {
+        {[1, 2, 3].map(k => {
           const d = PLAN.days[k];
           return (
             <button
@@ -32,7 +32,8 @@ function TodayView({ lang }) {
   const [current, setCurrentState] = useState(window.Store.getCurrent());
   const [, force] = useState(0);
   const dateKey = current?.date || window.Store.todayKey();
-  const dayKey = current?.dayKey;
+  // v5 dropped Day 4 — an old saved "current" can still point at it, so fall back to the picker
+  const dayKey = PLAN.days[current?.dayKey] ? current.dayKey : null;
 
   const setCurrent = (dk) => {
     const c = { date: window.Store.todayKey(), dayKey: dk };
@@ -165,8 +166,8 @@ function PlanView({ lang }) {
         <div className="hero-meta">{lang === "fa" ? PLAN.meta.goals_fa : PLAN.meta.goals_en}</div>
       </div>
 
-      <div className="day-tabs day-tabs-4">
-        {[1, 2, 3, 4].map(k => (
+      <div className="day-tabs">
+        {[1, 2, 3].map(k => (
           <button
             key={k}
             className={"day-tab" + (openDay === k ? " active" : "")}
@@ -222,6 +223,40 @@ function PlanView({ lang }) {
           ))}
         </div>
       </div>
+
+      <div className="plan-overview">
+        <h2 className="po-title">{t("weekOverview", lang)}</h2>
+        <div className="po-section">
+          {PLAN.week.map((w, i) => (
+            <div key={i} className="po-row po-row-week">
+              <span className="po-name">
+                <span className="po-week-day">{lang === "fa" ? w.day_fa : w.day_en}</span>
+                <span className="po-week-act">{lang === "fa" ? w.act_fa : w.act_en}</span>
+              </span>
+              <span className="po-meta-r">
+                {t("agility", lang)} {lang === "fa" ? w.agility_fa : w.agility_en}
+                <br />
+                {t("cardioShort", lang)} {lang === "fa" ? w.cardio_fa : w.cardio_en}
+              </span>
+            </div>
+          ))}
+        </div>
+        <div className="po-note">{lang === "fa" ? PLAN.weekNote.fa : PLAN.weekNote.en}</div>
+      </div>
+
+      <div className="plan-overview">
+        <h2 className="po-title">{t("agilityProg", lang)}</h2>
+        <div className="po-section">
+          {PLAN.agilityProgression.map((p, i) => (
+            <div key={i} className="po-row po-row-week">
+              <span className="po-name">
+                <span className="po-week-day">{lang === "fa" ? p.when_fa : p.when_en}</span>
+                <span className="po-week-act">{lang === "fa" ? p.what_fa : p.what_en}</span>
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
@@ -242,7 +277,7 @@ function ProgressView({ lang }) {
   }
 
   // exercise progression — show top 4 main lifts
-  const trackedIds = ["lat-pulldown", "rdl", "hipthrust", "incline-press", "shoulder-press", "goblet", "box-jump", "broad-jump"];
+  const trackedIds = ["lat-pulldown", "assisted-pullup", "bench-press", "rdl", "hipthrust", "goblet", "incline-press", "shoulder-press"];
   const progressions = trackedIds.map(id => {
     const ex = findExercise(id);
     if (!ex) return null;
@@ -329,7 +364,7 @@ function ProgressView({ lang }) {
 }
 
 function findExercise(id) {
-  for (const k of [1, 2, 3, 4]) {
+  for (const k of [1, 2, 3]) {
     const day = PLAN.days[k];
     for (const ex of [...day.warmup, ...day.main, ...day.cooldown]) {
       if (ex.id === id) return ex;
@@ -389,6 +424,17 @@ function HabitsView({ lang }) {
       </Section>
 
       <PostureNote lang={lang} />
+
+      <Section title={t("recoverySigns", lang)}>
+        <ul className="exp-list">
+          {PLAN.recoveryWarnings[lang].map((line, i) => (
+            <li key={i}><span className="exp-bullet">○</span>{line}</li>
+          ))}
+        </ul>
+        <div className="exp-long">
+          <p>{PLAN.recoveryFix[lang]}</p>
+        </div>
+      </Section>
 
       <Section title={lang === "fa" ? "این حرکات رو نکن (فعلا)" : "Don't do these (for now)"}>
         <div className="dont-list">

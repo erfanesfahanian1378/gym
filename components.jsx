@@ -123,7 +123,8 @@ function SetRow({ idx, set, prev, onChange, lang }) {
 function ExerciseCard({ ex, lang, dateKey, dayKey, onUpdate, sessionEx, idx }) {
   const [open, setOpen] = useState(false);
   const [showTimer, setShowTimer] = useState(false);
-  const [timerSec, setTimerSec] = useState(window.Store.getTimerPref() || 90);
+  const [timerSec, setTimerSec] = useState(ex.rest || window.Store.getTimerPref() || 90);
+  const restPills = [...new Set([ex.rest, 60, 90, 120].filter(Boolean))].sort((a, b) => a - b);
   const setsCount = ex.sets || (ex.reps_en ? 1 : 0);
   const totalSets = setsCount;
 
@@ -135,8 +136,9 @@ function ExerciseCard({ ex, lang, dateKey, dayKey, onUpdate, sessionEx, idx }) {
 
   const handleSet = (i, patch) => {
     onUpdate(ex.id, i, patch);
-    if (patch.done && window.Store.getTimerPref() > 0) {
-      setTimerSec(window.Store.getTimerPref());
+    if (patch.done && window.Store.getTimerPref() !== 0) {
+      // plan-prescribed rest wins; fall back to whatever the user last picked
+      setTimerSec(ex.rest || window.Store.getTimerPref() || 90);
       setShowTimer(true);
     }
   };
@@ -228,7 +230,7 @@ function ExerciseCard({ ex, lang, dateKey, dayKey, onUpdate, sessionEx, idx }) {
               <div className="rest-controls">
                 <span className="lbl">{t("startTimer", lang)}</span>
                 <div className="timer-pills">
-                  {[60, 90, 120].map(s => (
+                  {restPills.map(s => (
                     <button
                       key={s}
                       className={"pill" + (timerSec === s ? " active" : "")}

@@ -59,6 +59,17 @@ window.STR = {
   agility: { en: "Agility", fa: "چابکی" },
   agilityProg: { en: "Agility progression", fa: "پیشرفت چابکی" },
   recoverySigns: { en: "Recovery warning signs", fa: "علائم هشدار ریکاوری" },
+  export: { en: "Export", fa: "خروجی" },
+  backup: { en: "Backup", fa: "پشتیبان" },
+  backupNote: {
+    en: "Your workouts are saved only on this device. Export them to a file to keep a copy, or to move them into the new app.",
+    fa: "تمرین‌هات فقط روی همین دستگاه ذخیره شدن. ازشون یه فایل خروجی بگیر تا یه نسخه پشتیبان داشته باشی یا ببریشون تو اپ جدید.",
+  },
+  exportFile: { en: "Export backup file", fa: "گرفتن فایل پشتیبان" },
+  copyData: { en: "Copy as text", fa: "کپی به صورت متن" },
+  exported: { en: "Backup file saved", fa: "فایل پشتیبان ذخیره شد" },
+  copied: { en: "Copied — paste it into the new app", fa: "کپی شد — تو اپ جدید پیستش کن" },
+  copyFailed: { en: "Couldn't copy. Use the file export instead.", fa: "کپی نشد. از گرفتن فایل استفاده کن." },
   postureMatters: { en: "Posture comes first", fa: "پاسچر اولویت داره" },
   postureNote: {
     en: "Tuck the tailbone forward before every heavy set. Press the back firmly into the pad on machine work. Stop if it sharp pains.",

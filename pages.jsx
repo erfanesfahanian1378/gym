@@ -348,6 +348,19 @@ function ProgressView({ lang }) {
         })}
       </Section>
 
+      <Section title={t("backup", lang)}>
+        <div className="backup-card">
+          <p className="backup-text">{t("backupNote", lang)}</p>
+          <div className="backup-meta">
+            {window.langDigits(sessionEntries.length, lang)} {lang === "fa" ? "جلسه ذخیره شده" : "sessions saved"}
+          </div>
+          <div className="backup-actions">
+            <ExportButton lang={lang} className="btn-solid" label={t("exportFile", lang)} />
+            <button className="btn-ghost" onClick={() => runCopy(lang)}>{t("copyData", lang)}</button>
+          </div>
+        </div>
+      </Section>
+
       <Section title={t("expectations", lang)}>
         <ul className="exp-list">
           {window.PLAN.expectations_4_6[lang].map((line, i) => (

@@ -18,15 +18,37 @@ function Header({ lang, setLang, view, setView }) {
           <span className="hdr-mark">⏚</span>
           <span>{t("appTitle", lang)}</span>
         </div>
-        <button
-          className="lang-toggle"
-          onClick={() => setLang(lang === "fa" ? "en" : "fa")}
-          aria-label="Toggle language"
-        >
-          {lang === "fa" ? "EN" : "FA"}
-        </button>
+        <div className="hdr-actions">
+          <ExportButton lang={lang} className="lang-toggle" label={t("export", lang)} />
+          <button
+            className="lang-toggle"
+            onClick={() => setLang(lang === "fa" ? "en" : "fa")}
+            aria-label="Toggle language"
+          >
+            {lang === "fa" ? "EN" : "FA"}
+          </button>
+        </div>
       </div>
     </header>
+  );
+}
+
+// === Export (backup to file) ===
+async function runExport(lang) {
+  const res = await window.Backup.exportFile();
+  if (res === "downloaded") window.Backup.toast(t("exported", lang));
+}
+
+async function runCopy(lang) {
+  const ok = await window.Backup.copyText();
+  window.Backup.toast(t(ok ? "copied" : "copyFailed", lang));
+}
+
+function ExportButton({ lang, className, label }) {
+  return (
+    <button className={className} onClick={() => runExport(lang)} aria-label={t("exportFile", lang)}>
+      {label}
+    </button>
   );
 }
 
@@ -265,4 +287,4 @@ function Section({ title, children, kicker }) {
   );
 }
 
-Object.assign(window, { Header, NavBar, RestTimer, ExerciseCard, SetRow, Section, fmtDate });
+Object.assign(window, { Header, NavBar, RestTimer, ExerciseCard, SetRow, Section, fmtDate, ExportButton, runExport, runCopy });
